@@ -22,7 +22,11 @@
                     <td>@Model.AddId()</td>
                     <td>@data.Title</td>
                     <td>@data.FileSize.ToString()</td>
-                    <td>Show</td>
+                    <td>
+                        <a asp-page="/mdcontent" asp-route-id="@data.Id" class="btn btn-primary"> 
+                            Show
+                        </a>
+                    </td>
                     <td>Delete</td>
                 </tr>
             }

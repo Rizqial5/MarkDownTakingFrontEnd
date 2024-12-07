@@ -5,6 +5,14 @@
 }
 
 
-<div>
-    @Html.Raw(Model.Data.MarkDownFile)
-</div>
+@if(Model.Data.MarkDownFile == string.Empty)
+{
+    <h1> File Not Found </h1>
+}else
+{
+    <div>
+        @Html.Raw(Model!.Data.MarkDownFile)
+    </div>
+}
+
+

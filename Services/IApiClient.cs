@@ -6,7 +6,7 @@ namespace MarkDownTakingFrontEnd.Services
 {
     public interface IApiClient
     {
-        Task<ActionResult<IEnumerable<MDData>>> GetAllAsync();
+        Task<IEnumerable<MDData>> GetAllAsync();
         Task<ActionResult<MDData>> GetByIdAsync(int id);
         Task<ActionResult> PostMdFileAsync( IFormFile fileUpload);
         IActionResult GenerateMDFile(RequestContent inputText);

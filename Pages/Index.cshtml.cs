@@ -13,6 +13,7 @@ public class IndexModel : PageModel
     public int dataId = 1 ;
 
     public IEnumerable<MDData>? MDDatas {set;get;}
+    
 
     public IndexModel(ILogger<IndexModel> logger, IApiClient apiClient)
     {
@@ -25,6 +26,13 @@ public class IndexModel : PageModel
         var sessions = await _apiClient.GetAllAsync();
 
         MDDatas = sessions;
+    }
+
+    public async Task<IActionResult> OnPostDelete(int id)
+    {
+        await _apiClient.DeleteData(id);
+
+        return RedirectToPage();
     }
 
     public int AddId()

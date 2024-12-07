@@ -14,6 +14,18 @@ namespace MarkDownTakingFrontEnd.Services
             _httpClient = httpClient;
         }
 
+        public async Task DeleteData(int id)
+        {
+            var response = await _httpClient.DeleteAsync($"/api/MarkDown/delete/{id}");
+
+            if(response.StatusCode == HttpStatusCode.NotFound)
+            {
+                return ;
+            }
+
+            response.EnsureSuccessStatusCode();
+        }
+
         public IActionResult GenerateMDFile(RequestContent inputText)
         {
             throw new NotImplementedException();

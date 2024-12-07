@@ -27,7 +27,13 @@
                             Show
                         </a>
                     </td>
-                    <td>Delete</td>
+                    <td>
+                        <form method="post" asp-page-handler="Delete">
+                            <input type="hidden" name="id" value="@data.Id"/>
+                            <button type="submit" class="btn btn-danger" > Delete </button>
+                        </form>
+                        
+                    </td>
                 </tr>
             }
         </tbody>

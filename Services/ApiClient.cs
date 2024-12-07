@@ -33,9 +33,16 @@ namespace MarkDownTakingFrontEnd.Services
             return await response.Content.ReadFromJsonAsync<IEnumerable<MDData>>();
         }
 
-        public Task<ActionResult<MDData>> GetByIdAsync(int id)
+        public async Task<ShowData> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var response = await _httpClient.GetAsync($"/api/MarkDown/{id}");
+
+            if(response.StatusCode == HttpStatusCode.NotFound)
+            {
+                return null;
+            }
+
+            return await response.Content.ReadFromJsonAsync<ShowData>();
         }
 
         public Task<ActionResult> PostMdFileAsync(IFormFile fileUpload)

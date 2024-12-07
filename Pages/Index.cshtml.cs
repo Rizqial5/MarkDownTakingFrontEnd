@@ -12,7 +12,7 @@ public class IndexModel : PageModel
 
     public int dataId = 1 ;
 
-    public IEnumerable<MDData> MDDatas {set;get;}
+    public IEnumerable<MDData>? MDDatas {set;get;}
 
     public IndexModel(ILogger<IndexModel> logger, IApiClient apiClient)
     {

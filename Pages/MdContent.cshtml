@@ -1,0 +1,10 @@
+﻿@page "{id}"
+@model MarkDownTakingFrontEnd.Pages.MdContentModel
+@{
+    ViewData["Title"] = "MD Content";
+}
+
+
+<div>
+    @Html.Raw(Model.Data.MarkDownFile)
+</div>

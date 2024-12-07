@@ -16,7 +16,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach(var data in Model.MDDatas)
+            @foreach(var data in Model!.MDDatas!)
             {
                 <tr>
                     <td>@Model.AddId()</td>

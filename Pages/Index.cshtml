@@ -5,10 +5,27 @@
 }
 
 <div class="text-center">
-    <ul>
-        @foreach (var data in Model.MDDatas)
-        {
-            <li>@data.Title</li>
-        }
-    </ul>
+    <table class="table mt-5">
+        <thead>
+            <tr>
+                <th scope="col">No.</th>
+                <th scope="col"> Name File </th>
+                <th scope="col">File Size </th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var data in Model.MDDatas)
+            {
+                <tr>
+                    <td>@Model.AddId()</td>
+                    <td>@data.Title</td>
+                    <td>@data.FileSize.ToString()</td>
+                    <td>Show</td>
+                    <td>Delete</td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>

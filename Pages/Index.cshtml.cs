@@ -10,6 +10,8 @@ public class IndexModel : PageModel
     private readonly ILogger<IndexModel> _logger;
     private readonly IApiClient _apiClient;
 
+    public int dataId = 1 ;
+
     public IEnumerable<MDData> MDDatas {set;get;}
 
     public IndexModel(ILogger<IndexModel> logger, IApiClient apiClient)
@@ -24,4 +26,11 @@ public class IndexModel : PageModel
 
         MDDatas = sessions;
     }
+
+    public int AddId()
+    {
+        return dataId++;
+    }
+
+
 }

@@ -4,6 +4,14 @@
     ViewData["Title"] = "Home page";
 }
 
+<div class="form-group">
+    <form method="post" asp-page-handler="Upload" enctype="multipart/form-data">
+    <input type="file" id="fileUpload" name="fileUpload" >
+    <p class="help-block">Upload .md file</p>
+    <button type="submit" class="btn btn-primary" > Submit File </button>
+    </form>
+</div>
+
 <div class="text-center">
     <table class="table mt-5">
         <thead>

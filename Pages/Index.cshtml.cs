@@ -13,6 +13,9 @@ public class IndexModel : PageModel
     public int dataId = 1 ;
 
     public IEnumerable<MDData>? MDDatas {set;get;}
+
+    [BindProperty]
+    public string ResponseMessage{get;set;}
     
 
     public IndexModel(ILogger<IndexModel> logger, IApiClient apiClient)
@@ -33,6 +36,24 @@ public class IndexModel : PageModel
         await _apiClient.DeleteData(id);
 
         return RedirectToPage();
+    }
+
+    public async Task<IActionResult> OnPostUpload(IFormFile fileUpload)
+    {
+
+        if(fileUpload == null || fileUpload.Length == 0) 
+        {
+            ResponseMessage = "Please select a valid file to upload";
+            return Page();
+        }
+
+        await _apiClient.PostMdFileAsync(fileUpload);
+
+        ResponseMessage = "File uploaded succesfully";
+        Console.WriteLine(fileUpload.ContentType);
+
+        return RedirectToPage();
+        
     }
 
     public int AddId()

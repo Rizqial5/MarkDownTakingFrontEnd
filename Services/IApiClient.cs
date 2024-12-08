@@ -8,7 +8,7 @@ namespace MarkDownTakingFrontEnd.Services
     {
         Task<IEnumerable<MDData>> GetAllAsync();
         Task<ShowData> GetByIdAsync(int id);
-        Task<ActionResult> PostMdFileAsync( IFormFile fileUpload);
+        Task PostMdFileAsync( IFormFile fileUpload);
         Task DeleteData(int id);
         IActionResult GenerateMDFile(RequestContent inputText);
     }

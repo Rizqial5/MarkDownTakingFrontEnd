@@ -2,6 +2,7 @@ using System.Net;
 using MarkDownTaking.API.Controllers;
 using MarkDownTaking.API.Model;
 using Microsoft.AspNetCore.Mvc;
+using System.Net.Http.Headers;
 
 namespace MarkDownTakingFrontEnd.Services
 {
@@ -57,9 +58,36 @@ namespace MarkDownTakingFrontEnd.Services
             return await response.Content.ReadFromJsonAsync<ShowData>();
         }
 
-        public Task<ActionResult> PostMdFileAsync(IFormFile fileUpload)
+        public async Task PostMdFileAsync(IFormFile fileUpload)
         {
-            throw new NotImplementedException();
+            var multipartContent = new MultipartFormDataContent();
+
+            using var fileStream = fileUpload.OpenReadStream();
+            var fileContent = new StreamContent(fileStream)
+            {
+                Headers = 
+                {
+                    ContentType = new MediaTypeHeaderValue(fileUpload.ContentType),
+                    ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "fileUpload",
+                        FileName = fileUpload.FileName
+                    }
+                }
+            };
+
+            multipartContent.Add(fileContent, "fileUpload", fileUpload.FileName);
+
+            var response = await _httpClient.PostAsync($"/api/MarkDown/upload", multipartContent);
+
+            if (response.StatusCode == HttpStatusCode.Conflict)
+            {
+                return ;
+            }
+
+            response.EnsureSuccessStatusCode();
+
+        
         }
     }
 }

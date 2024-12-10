@@ -12,7 +12,7 @@
     <button type="submit" class="btn btn-primary" > Submit File </button>
     </form>
 
-    <p>@Model.ResponseMessage </p>
+    <p class="@(!string.IsNullOrEmpty(Model.ResponseMessage) ? "text-danger" : "")">@Model.ResponseMessage </p>
 </div>
 
 <div class="text-center">

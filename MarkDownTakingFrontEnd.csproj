@@ -2,6 +2,15 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MarkDownTakingAPI\MarkDownTakingAPI.csproj" />
+
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <TargetPath>MarkDownTakingFrontEnd\appsettings.json</TargetPath>
+    </None>
+    <None Update="appsettings.Development.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <TargetPath>MarkDownTakingFrontEnd\appsettings.Development.json</TargetPath>
+    </None>
   </ItemGroup>
 
   <PropertyGroup>

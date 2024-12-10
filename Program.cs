@@ -1,6 +1,8 @@
 using MarkDownTakingFrontEnd.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Configuration.AddJsonFile("FrontEnd.appsettings.json", optional: true, reloadOnChange: true)
+                     .AddJsonFile($"FrontEnd.appsettings.{builder.Environment.EnvironmentName}.json", optional: true);
 
 // Add services to the container.
 builder.Services.AddRazorPages();

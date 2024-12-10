@@ -16,37 +16,45 @@
 </div>
 
 <div class="text-center">
-    <table class="table mt-5">
-        <thead>
-            <tr>
-                <th scope="col">No.</th>
-                <th scope="col"> Name File </th>
-                <th scope="col">File Size </th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach(var data in Model!.MDDatas!)
-            {
+    @if(Model.MDDatas == null || !Model.MDDatas.Any())
+    {
+        <h3 class="text-center">No data avaialable</h3>
+    }
+    else
+    {
+        <table class="table mt-5">
+            <thead>
                 <tr>
-                    <td>@Model.AddId()</td>
-                    <td>@data.Title</td>
-                    <td>@(data.FileSize > 0 ? $"{data.FileSize/ 1024:N2} Kb" : "0")</td>
-                    <td>
-                        <a asp-page="/mdcontent" asp-route-id="@data.Id" class="btn btn-primary"> 
-                            Show
-                        </a>
-                    </td>
-                    <td>
-                        <form method="post" asp-page-handler="Delete">
-                            <input type="hidden" name="id" value="@data.Id"/>
-                            <button type="submit" class="btn btn-danger" > Delete </button>
-                        </form>
-                        
-                    </td>
+                    <th scope="col">No.</th>
+                    <th scope="col"> Name File </th>
+                    <th scope="col">File Size </th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach(var data in Model!.MDDatas!)
+                {
+                    <tr>
+                        <td>@Model.AddId()</td>
+                        <td>@data.Title</td>
+                        <td>@(data.FileSize > 0 ? $"{data.FileSize/ 1024:N2} Kb" : "0")</td>
+                        <td>
+                            <a asp-page="/mdcontent" asp-route-id="@data.Id" class="btn btn-primary"> 
+                                Show
+                            </a>
+                        </td>
+                        <td>
+                            <form method="post" asp-page-handler="Delete">
+                                <input type="hidden" name="id" value="@data.Id"/>
+                                <button type="submit" class="btn btn-danger" > Delete </button>
+                            </form>
+                            
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    
 </div>

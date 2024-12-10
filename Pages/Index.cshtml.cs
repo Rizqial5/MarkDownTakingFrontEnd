@@ -33,11 +33,8 @@ public class IndexModel : PageModel
     private async Task UpdateData()
     {
         var sessions = await _apiClient.GetAllAsync();
-        foreach (var session in sessions)
-        {
-            _logger.LogInformation($"File: {session.Title}, Size: {session.FileSize}");
-        }
         
+
         MDDatas = sessions;
     }
 
@@ -51,10 +48,10 @@ public class IndexModel : PageModel
     public async Task<IActionResult> OnPostUpload(IFormFile fileUpload)
     {
 
-        if(fileUpload == null || fileUpload.Length == 0) 
+        if(fileUpload == null || fileUpload.Length == 0)
         {
-            ResponseMessage = "Please select a valid file to upload";
-            
+            SetResponseMessage("Please Upload a File");
+
             await UpdateData();
 
             return Page();
@@ -65,7 +62,8 @@ public class IndexModel : PageModel
 
         if(!permittedExtension.Contains(extension))
         {
-            ResponseMessage = "Wrong type file, pleas upload .md file";
+        
+            SetResponseMessage("Wrong type file, pleas upload .md file");
             
             await UpdateData();
             return Page();
@@ -74,14 +72,19 @@ public class IndexModel : PageModel
 
         await _apiClient.PostMdFileAsync(fileUpload);
 
-        ResponseMessage = "File uploaded succesfully";
-        Console.WriteLine(fileUpload.ContentType);
-        Console.WriteLine(ResponseMessage);
+        SetResponseMessage("File uploaded succesfully");
+        
+        
 
         await UpdateData();
 
         return Page();
         
+    }
+
+    private void SetResponseMessage( string text)
+    {
+        ResponseMessage = text;
     }
 
     public int AddId()

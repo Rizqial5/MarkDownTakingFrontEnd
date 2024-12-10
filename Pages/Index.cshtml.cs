@@ -12,6 +12,7 @@ public class IndexModel : PageModel
 
     public int dataId = 1 ;
 
+    [BindProperty]
     public IEnumerable<MDData>? MDDatas {set;get;}
 
     [BindProperty]
@@ -26,8 +27,17 @@ public class IndexModel : PageModel
 
     public async Task OnGet()
     {
-        var sessions = await _apiClient.GetAllAsync();
+        await UpdateData();
+    }
 
+    private async Task UpdateData()
+    {
+        var sessions = await _apiClient.GetAllAsync();
+        foreach (var session in sessions)
+        {
+            _logger.LogInformation($"File: {session.Title}, Size: {session.FileSize}");
+        }
+        
         MDDatas = sessions;
     }
 
@@ -44,15 +54,33 @@ public class IndexModel : PageModel
         if(fileUpload == null || fileUpload.Length == 0) 
         {
             ResponseMessage = "Please select a valid file to upload";
+            
+            await UpdateData();
+
             return Page();
         }
+
+        var extension = Path.GetExtension(fileUpload.FileName).ToLowerInvariant();
+        string permittedExtension =  ".md";
+
+        if(!permittedExtension.Contains(extension))
+        {
+            ResponseMessage = "Wrong type file, pleas upload .md file";
+            
+            await UpdateData();
+            return Page();
+        } 
+
 
         await _apiClient.PostMdFileAsync(fileUpload);
 
         ResponseMessage = "File uploaded succesfully";
         Console.WriteLine(fileUpload.ContentType);
+        Console.WriteLine(ResponseMessage);
 
-        return RedirectToPage();
+        await UpdateData();
+
+        return Page();
         
     }
 
